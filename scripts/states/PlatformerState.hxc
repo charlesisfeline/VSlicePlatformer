@@ -24,8 +24,7 @@ class PlatformerState extends ScriptedMusicBeatState
     var justDied:Bool = false;
 
     var player:FlxSprite;
-
-    // var ground:FlxSprite;
+    var level:FlxTilemap;
 
     public function new()
     {
@@ -56,9 +55,11 @@ class PlatformerState extends ScriptedMusicBeatState
 
         trace("hi");
 
+        /*
         level = new FlxTilemap();
 		level.loadMapFromCSV(getCsv("data/csv/level"), FlxGraphic.fromClass(GraphicAuto), 0, 0, AUTO);
 		add(level);
+        */
 
         player = new FlxSprite().loadGraphic(Paths.image("platformer/playerSprite"));
         player.screenCenter();
@@ -104,7 +105,7 @@ class PlatformerState extends ScriptedMusicBeatState
 
         if (player != null)
         {
-        FlxG.collide(level, player);
+        // FlxG.collide(level, player);
 
         if (player.y > FlxG.height)
 		{
