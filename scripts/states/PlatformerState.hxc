@@ -82,7 +82,9 @@ class PlatformerState extends ScriptedMusicBeatState
 
     override public function update(elapsed:Float)
     {
-        player.acceleration.x = 0;
+        if (player != null)
+        {
+            player.acceleration.x = 0;
 
         // control shits
         if (FlxG.keys.anyPressed([LEFT, A]))
@@ -93,12 +95,15 @@ class PlatformerState extends ScriptedMusicBeatState
 
 		if (FlxG.keys.anyJustPressed([SPACE, UP, W]) && player.isTouching(FLOOR))
 			player.velocity.y = -player.maxVelocity.y / 2;
+    }
 
         if (controls.BACK) goBack();
         //
 
         super.update(elapsed);
 
+        if (player != null)
+        {
         FlxG.collide(level, player);
 
         if (player.y > FlxG.height)
@@ -107,10 +112,11 @@ class PlatformerState extends ScriptedMusicBeatState
 			goBack(); // lol
 		}
     }
+    }
 
     function win():Void
 	{
         trace("congrats you won!");
-		player.kill();
+		if (player != null) player.kill();
 	}
 }
