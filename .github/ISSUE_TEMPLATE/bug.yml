@@ -1,0 +1,52 @@
+name: Bug Report
+description: Report a bug or issue in the mod.
+labels: ["[TYPE] minor bug", "[STATUS] pending triage"]
+title: "Bug Report!"
+body:
+  - type: checkboxes
+    attributes:
+      label: Issue Checklist
+      options:
+        - label: I have properly named the issue
+        - label: I have checked the issues/discussions pages to see if the issue has been previously reported
+
+  - type: dropdown
+    attributes:
+      label: "What is your build target?"
+      options:
+        - "Windows"
+        - "Linux"
+        - "Mac"
+        - "HTML5"
+        - "Android"
+        - "iOS"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Version
+      description: What version are you using?
+      placeholder: ex. 0.4.1
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## Describe your issue."
+
+  - type: markdown
+    attributes:
+      value: "### Please do not report issues from other engines. These must be reported in their respective repositories.**"
+
+  - type: markdown
+    attributes:
+      value: "#### Provide as many details as you can."
+
+  - type: textarea
+    attributes:
+      label: Context (Provide images, videos, etc.)
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce (or crash logs, errors, etc.)

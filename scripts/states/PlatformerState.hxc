@@ -1,0 +1,67 @@
+import Main;
+
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.text.FlxText;
+
+import funkin.Conductor;
+import funkin.Paths;
+import funkin.audio.FunkinSound;
+import funkin.modding.base.ScriptedFlxSprite;
+import funkin.modding.base.ScriptedMusicBeatState;
+import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
+import funkin.ui.MusicBeatState;
+import funkin.ui.mainmenu.MainMenuState;
+import funkin.util.ReflectUtil;
+
+class PlatformerState extends ScriptedMusicBeatState
+{
+    var player:FlxSprite;
+
+    // var ground:FlxSprite;
+
+    public function new()
+    {
+        super();
+    }
+
+    public function create():Void
+    {
+        super.create();
+
+        FlxTransitionableState.skipNextTransIn = true;
+        FlxTransitionableState.skipNextTransOut = true;
+
+        FunkinSound.playMusic("chartEditorLoop",
+            {
+                overrideExisting: true,
+                restartTrack: false
+            });
+
+        trace("hi");
+
+        player = new FlxSprite().loadGraphic(Paths.image("platformer/playerSprite"));
+        player.screenCenter();
+
+        // thx cyn
+        ModuleHandler.getModule("Reloader").scriptGet("reload").set("state", function():Void
+        {
+            FlxG.switchState(ScriptedMusicBeatState.init("PlatformerState"));
+        });
+    }
+
+    function goBack()
+    {
+        trace("back");
+        FlxG.switchState(() -> new MainMenuState());
+    }
+
+    override function update(elapsed:Float)
+    {
+        if (controls.BACK) goBack();
+
+        super.update(elapsed);
+    }
+}

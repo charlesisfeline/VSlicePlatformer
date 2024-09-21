@@ -1,0 +1,41 @@
+import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
+
+class ModBootstrapInit extends Module
+{
+    public function new()
+    {
+        super("ModBootstrapInit");
+
+trace("ModBootstrapInit up");
+    }
+    
+    public function onCreate(event:ScriptEvent):Void
+    {
+        this.active = false;
+        if ((launcher = ModuleHandler.getModule("BootStrapBinds")) != null)
+        {
+            ModuleHandler.getModule("BootStrapBinds").scriptCall("bind", [
+                {
+                    name: "PLATFORMER EXPERIMENT",
+                    description: "AN EXPERIMENT",
+                    target: "BaseTitleState",
+                    logo: 'banning',
+                    bg: '',
+                    icon: 'funniicon32',
+                    author: "charlesisfeline",
+                    color: 0xFF7D7D8D,
+                    bg_group: (group) ->
+                    {
+                        return;
+                    },
+                    disclaimer: "Contains shitty code, and yes this is just an experiment."
+                }
+            ]);
+        }
+        else
+        {
+            trace("cant find modbootstrap!");
+        }
+    }
+}

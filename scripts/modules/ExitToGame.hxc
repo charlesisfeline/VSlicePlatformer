@@ -1,0 +1,42 @@
+import Main;
+
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.text.FlxText;
+
+import funkin.Conductor;
+import funkin.Paths;
+import funkin.modding.base.ScriptedFlxSprite;
+import funkin.modding.base.ScriptedMusicBeatState;
+import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.module.ScriptedModule;
+import funkin.ui.MusicBeatState;
+import funkin.ui.mainmenu.MainMenuState;
+import funkin.util.ReflectUtil;
+
+class ExitToGame extends ScriptedModule
+{
+    public function new()
+    {
+        super("ExitToGame", -1);
+
+        trace("swag exiting");
+    }
+
+    override function onUpdate(event:UpdateScriptEvent)
+    {
+        super.onUpdate(event);
+
+        var province = ReflectUtil.getClassNameOf(FlxG.state); // please ignore how i name my vars ;-;
+        if (province == 'funkin.ui.mainmenu.MainMenuState')
+        {
+            if (FlxG.keys.justPressed.FOUR)
+            {
+                trace("beep");
+                FlxG.switchState(ScriptedMusicBeatState.init('PlatformerState'));
+            }
+        }
+    }
+}

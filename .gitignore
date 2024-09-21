@@ -1,0 +1,32 @@
+# vs code shits
+.vs/*
+!.code-workspace
+.vscode/.temp
+!*.hxml
+
+# ! means a file should be added regardless of it it gets ignored prior.
+# Including to allow others to use already set-up configuration tweaked for the project.
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# macOS being a poosy!!!
+.DS_Store
+__MACOSX/
+
+# js stuff
+node_modules/
+package.json
+package-lock.json
+
+# Local history which shouldn't be shared.
+.history
+.ionide
+
+# misc
+Thumbs.db 
+desktop.ini
+RECOVER_*.fla
+* - Copy*
+dump/

@@ -1,0 +1,32 @@
+import haxe.ds.StringMap;
+
+import flixel.FlxG;
+
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.module.ScriptedModule;
+
+// thx cyn
+class Reloader extends ScriptedModule
+{
+    public function new()
+    {
+        super("Reloader", -2147483646);
+        
+        trace("swag");
+    }
+    
+    public var reload:StringMap<() -> Void> = new StringMap();
+    
+    override public function onDestroy(event:ScriptEvent):Void
+    {
+        FlxG.signals.postStateSwitch.addOnce(function():Void
+        {
+            ModuleHandler.getModule("Reloader").scriptSet("reload", new StringMap());
+            
+            for (func in reload.keys())
+                reload.get(func)();
+                
+            reload = new StringMap(); // just in case
+        });
+    }
+}
