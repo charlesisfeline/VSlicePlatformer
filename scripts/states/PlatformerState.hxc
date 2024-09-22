@@ -72,7 +72,6 @@ class PlatformerState extends ScriptedMusicBeatState
 
         tempLevel = new FlxSprite().loadGraphic(Paths.image("platformer/tempGround"));
         tempLevel.antialiasing = false;
-        tempLevel.screenCenter();
         add(tempLevel);
 
         player.screenCenter(0x01);
@@ -91,6 +90,8 @@ class PlatformerState extends ScriptedMusicBeatState
 
     override public function update(elapsed:Float)
     {
+        tempLevel.screenCenter();
+
         if (player != null)
         {
             player.acceleration.x = 0;
