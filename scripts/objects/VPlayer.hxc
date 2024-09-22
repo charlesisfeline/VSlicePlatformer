@@ -11,13 +11,23 @@ class VPlayer extends ScriptedFunkinSprite
   {
     super(x, y);
 
-    loadGraphic(Paths.image("platformer/playerSprite"));
+    setupSprite();
 
     maxVelocity.set(80, 200);
 		acceleration.y = 200;
 		drag.x = maxVelocity.x * 4;
+  }
+
+  function setupSprite()
+  {
+    loadGraphic(Paths.image("platformer/playerSprite"));
 
     antialiasing = false;
+  }
+
+  override public function destroy()
+  {
+    super.destroy();
   }
 
   function update(ew)

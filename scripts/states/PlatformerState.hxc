@@ -127,6 +127,11 @@ class PlatformerState extends ScriptedMusicBeatState
     }
     }
 
+    override public function destroy():Void
+	{
+		super.destroy();
+	}
+
     function jump()
     {
         FlxG.sound.play(Paths.sound('jump'));
