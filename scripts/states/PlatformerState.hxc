@@ -61,7 +61,8 @@ class PlatformerState extends ScriptedMusicBeatState
 		add(level);
         */
 
-        player.screenCenter(Y);
+        player.screenCenter();
+        player.y = 0;
         add(player);
 
         super.create();
