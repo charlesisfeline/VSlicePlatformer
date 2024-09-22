@@ -1,5 +1,6 @@
 import Main;
 
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -7,6 +8,7 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.FlxGraphic;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
+import flixel.util.FlxTimer;
 
 import funkin.Conductor;
 import funkin.Paths;
@@ -21,10 +23,13 @@ import funkin.util.ReflectUtil;
 
 class PlatformerState extends ScriptedMusicBeatState
 {
+    var showHitboxes:Bool = false;
     var justDied:Bool = false;
 
-    var player:FlxSprite;
-    var level:FlxTilemap;
+    public var player:FlxSprite;
+    public var level:FlxTilemap;
+
+    var camGame:FlxCamera;
 
     public function new()
     {
@@ -38,8 +43,6 @@ class PlatformerState extends ScriptedMusicBeatState
 
     public function create():Void
     {
-        super.create();
-
         FlxG.mouse.visible = true;
 
         FlxTransitionableState.skipNextTransIn = true;
@@ -51,7 +54,12 @@ class PlatformerState extends ScriptedMusicBeatState
                 restartTrack: false
             });
 
+        camGame = new FlxCamera();
         FlxG.cameras.bgColor = 0x2A1D1D;
+
+        FlxG.cameras.reset(camGame);
+
+		FlxCamera.defaultCameras = [camGame];
 
         trace("hi");
 
@@ -67,6 +75,8 @@ class PlatformerState extends ScriptedMusicBeatState
 		player.acceleration.y = 200;
 		player.drag.x = player.maxVelocity.x * 4;
         add(player);
+
+        super.create();
 
         // thx cyn
         ModuleHandler.getModule("Reloader").scriptGet("reload").set("state", function():Void
@@ -88,15 +98,20 @@ class PlatformerState extends ScriptedMusicBeatState
             player.acceleration.x = 0;
 
         // control shits
-        if (FlxG.keys.anyPressed([LEFT, A]))
+        if (FlxG.keys.pressed.LEFT)
 			player.acceleration.x = -player.maxVelocity.x * 4;
 
-		if (FlxG.keys.anyPressed([RIGHT, D]))
+		if (FlxG.keys.pressed.RIGHT)
 			player.acceleration.x = player.maxVelocity.x * 4;
 
-		if (FlxG.keys.anyJustPressed([SPACE, UP, W]) && player.isTouching(FLOOR))
+		if ((FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE))
 			player.velocity.y = -player.maxVelocity.y / 2;
     }
+
+        if (FlxG.keys.justPressed.H)
+            showHitboxes = !showHitboxes;
+
+        FlxG.debugger.drawDebug = showHitboxes;
 
         if (controls.BACK) goBack();
         //
