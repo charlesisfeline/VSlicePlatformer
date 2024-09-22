@@ -105,7 +105,7 @@ class PlatformerState extends ScriptedMusicBeatState
 			player.acceleration.x = player.maxVelocity.x * 4;
 
 		if ((FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE))
-			player.velocity.y = -player.maxVelocity.y / 2;
+			jump();
     }
 
         if (FlxG.keys.justPressed.H)
@@ -130,7 +130,13 @@ class PlatformerState extends ScriptedMusicBeatState
     }
     }
 
-    function win():Void
+    function jump()
+    {
+        FlxG.sound.play(Paths.sound('jump'));
+        player.velocity.y = -player.maxVelocity.y / 2;
+    }
+
+    function win()
 	{
         trace("congrats you won!");
 		if (player != null) player.kill();
