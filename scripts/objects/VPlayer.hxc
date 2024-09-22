@@ -42,10 +42,9 @@ class VPlayer extends ScriptedFunkinSprite
   {
     _left = FlxG.keys.pressed.LEFT;
     _right = FlxG.keys.pressed.RIGHT;
-    _jumpKey = (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE)
+    _jumpKey = (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE);
 
     if (_left && _right)
        _left = _right = false;
   }
-
 }
