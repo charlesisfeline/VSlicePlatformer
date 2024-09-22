@@ -61,7 +61,7 @@ class PlatformerState extends ScriptedMusicBeatState
 		add(level);
         */
 
-        player.screenCenter();
+        player.screenCenter(Y);
         add(player);
 
         super.create();
@@ -82,9 +82,17 @@ class PlatformerState extends ScriptedMusicBeatState
             player.acceleration.x = 0;
 
             // control shits
-            if (controls.LEFT) player.acceleration.x = -player.maxVelocity.x * 4;
-		    if (controls.RIGHT) player.acceleration.x = player.maxVelocity.x * 4;
-            if (controls.ACCEPT_P) jump();
+            if (FlxG.keys.pressed.LEFT)
+            {
+                player.flipX = true;
+                player.acceleration.x = -player.maxVelocity.x * 4;
+            }
+		    if (FlxG.keys.pressed.RIGHT)
+            {
+                player.flipX = false;
+                player.acceleration.x = player.maxVelocity.x * 4;
+            }
+            if ((FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE)) jump();
         }
 
         if (FlxG.keys.justPressed.H) showHitboxes = !showHitboxes;

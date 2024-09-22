@@ -13,8 +13,8 @@ class VPlayer extends ScriptedFunkinSprite
 
     setupSprite();
 
-    maxVelocity.set(80, 200);
-		acceleration.y = 200;
+    maxVelocity.set(80, 300);
+		acceleration.y = 300;
 		drag.x = maxVelocity.x * 4;
   }
 
