@@ -21,9 +21,9 @@ class VPlayer extends ScriptedFunkinSprite
 
     loadGraphic(Paths.image("platformer/playerSprite"));
 
-    player.maxVelocity.set(80, 200);
-		player.acceleration.y = 200;
-		player.drag.x = player.maxVelocity.x * 4;
+    maxVelocity.set(80, 200);
+		acceleration.y = 200;
+		drag.x = maxVelocity.x * 4;
 
     antialiasing = false;
   }

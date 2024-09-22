@@ -14,6 +14,7 @@ import funkin.Conductor;
 import funkin.Paths;
 import funkin.audio.FunkinSound;
 import funkin.modding.base.ScriptedFlxSprite;
+import funkin.modding.base.ScriptedFunkinSprite;
 import funkin.modding.base.ScriptedMusicBeatState;
 import funkin.modding.module.Module;
 import funkin.modding.module.ModuleHandler;
