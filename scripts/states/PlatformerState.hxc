@@ -30,14 +30,16 @@ class PlatformerState extends ScriptedMusicBeatState
     var justDied:Bool = false;
     public var deaths:Int = 0;
 
+    public var sky:FlxSprite;
     public var player = ScriptedFunkinSprite.init("VPlayer");
+    public var tempLevel:FlxSprite;
     public var level:FlxTilemap;
 
     var camGame:FlxCamera;
 
     public function new() { super(); }
 
-    public function getCsv(path:String) { return "mods/platf/" + path + ".csv"; }
+    public function getLevelFile(path:String) { return "mods/platf/" + path + ".txt"; }
 
     public function create():Void
     {
@@ -57,9 +59,21 @@ class PlatformerState extends ScriptedMusicBeatState
 
         trace("hi");
 
+        /*
         level = new FlxTilemap();
-		level.loadMapFromCSV(getCsv("data/csv/level"), Paths.image("platformer/tiles"), 16, 16);
+		level.loadMapFromCSV(getLevelFile("data/maps/level"), Paths.image("platformer/tiles"), 16, 16);
         add(level);
+        */
+
+        sky = new FlxSprite().loadGraphic(Paths.image("platformer/sky"));
+        sky.antialiasing = false;
+        sky.screenCenter();
+        add(sky);
+
+        tempLevel = new FlxSprite().loadGraphic(Paths.image("platformer/tempGround"));
+        tempLevel.antialiasing = false;
+        tempLevel.screenCenter();
+        add(tempLevel);
 
         player.screenCenter(0x01);
         add(player);
@@ -106,7 +120,8 @@ class PlatformerState extends ScriptedMusicBeatState
 
         if (player != null)
         {
-          FlxG.collide(level, player);
+          // FlxG.collide(level, player);
+          FlxG.collide(tempLevel, player);
 
           if (player.y > FlxG.height) lose();
         }
