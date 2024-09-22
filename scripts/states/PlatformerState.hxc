@@ -127,7 +127,7 @@ class PlatformerState extends ScriptedMusicBeatState
     }
     }
 
-    override public function destroy():Void
+    override public function destroy()
 	{
 		super.destroy();
 	}
