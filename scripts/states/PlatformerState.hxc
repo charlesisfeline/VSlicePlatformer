@@ -95,13 +95,13 @@ class PlatformerState extends ScriptedMusicBeatState
             player.acceleration.x = 0;
 
         // control shits
-        if (player._left)
+        if (FlxG.keys.pressed.LEFT)
 			player.acceleration.x = -player.maxVelocity.x * 4;
 
-		if (player._right)
+		if (FlxG.keys.pressed.RIGHT)
 			player.acceleration.x = player.maxVelocity.x * 4;
 
-		if (player._jumpKey)
+		if ((FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE))
 			jump();
     }
 
