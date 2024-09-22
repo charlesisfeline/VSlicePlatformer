@@ -58,7 +58,7 @@ class PlatformerState extends ScriptedMusicBeatState
         trace("hi");
 
         level = new FlxTilemap();
-		level.loadMapFromCsv(getCsv("data/csv/level"), Paths.image("platformer/tiles"), 16, 16);
+		level.loadMapFromCSV(getCsv("data/csv/level"), Paths.image("platformer/tiles"), 16, 16);
         add(level);
 
         player.screenCenter(0x01);
