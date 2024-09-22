@@ -26,21 +26,16 @@ class PlatformerState extends ScriptedMusicBeatState
 {
     var showHitboxes:Bool = false;
     var justDied:Bool = false;
+    public var deaths:Int = 0;
 
     public var player = ScriptedFunkinSprite.init("VPlayer");
     public var level:FlxTilemap;
 
     var camGame:FlxCamera;
 
-    public function new()
-    {
-        super();
-    }
+    public function new() { super(); }
 
-    public function getCsv(path:String)
-    {
-        return "mods/platf/" + path + ".csv";
-    }
+    public function getCsv(path:String) { return "mods/platf/" + path + ".csv"; }
 
     public function create():Void
     {
@@ -49,11 +44,7 @@ class PlatformerState extends ScriptedMusicBeatState
         FlxTransitionableState.skipNextTransIn = true;
         FlxTransitionableState.skipNextTransOut = true;
 
-        FunkinSound.playMusic("chartEditorLoop",
-            {
-                overrideExisting: true,
-                restartTrack: false
-            });
+        FunkinSound.playMusic("chartEditorLoop", {overrideExisting: true, restartTrack: false});
 
         camGame = new FlxCamera();
         FlxG.cameras.bgColor = 0x2A1D1D;
@@ -82,11 +73,7 @@ class PlatformerState extends ScriptedMusicBeatState
         });
     }
 
-    function goBack()
-    {
-        trace("back");
-        FlxG.switchState(() -> new MainMenuState());
-    }
+    function goBack() { trace("back"); FlxG.switchState(() -> new MainMenuState()); }
 
     override public function update(elapsed:Float)
     {
@@ -94,19 +81,13 @@ class PlatformerState extends ScriptedMusicBeatState
         {
             player.acceleration.x = 0;
 
-        // control shits
-        if (FlxG.keys.pressed.LEFT)
-			player.acceleration.x = -player.maxVelocity.x * 4;
+            // control shits
+            if (controls.LEFT) player.acceleration.x = -player.maxVelocity.x * 4;
+		    if (controls.RIGHT) player.acceleration.x = player.maxVelocity.x * 4;
+            if (controls.ACCEPT_P) jump();
+        }
 
-		if (FlxG.keys.pressed.RIGHT)
-			player.acceleration.x = player.maxVelocity.x * 4;
-
-		if ((FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE))
-			jump();
-    }
-
-        if (FlxG.keys.justPressed.H)
-            showHitboxes = !showHitboxes;
+        if (FlxG.keys.justPressed.H) showHitboxes = !showHitboxes;
 
         FlxG.debugger.drawDebug = showHitboxes;
 
@@ -117,30 +98,21 @@ class PlatformerState extends ScriptedMusicBeatState
 
         if (player != null)
         {
-        // FlxG.collide(level, player);
+          // FlxG.collide(level, player);
 
-        if (player.y > FlxG.height)
-		{
-			justDied = true;
-			goBack(); // lol
-		}
-    }
+          if (player.y > FlxG.height) lose();
+        }
     }
 
-    override public function destroy()
+    override public function destroy() { super.destroy(); }
+
+    function jump() { FlxG.sound.play(Paths.sound('jump')); player.velocity.y = -player.maxVelocity.y / 2; }
+
+    function lose()
 	{
-		super.destroy();
-	}
-
-    function jump()
-    {
-        FlxG.sound.play(Paths.sound('jump'));
-        player.velocity.y = -player.maxVelocity.y / 2;
+        justDied = true;
+		goBack(); // lol
     }
 
-    function win()
-	{
-        trace("congrats you won!");
-		if (player != null) player.kill();
-	}
+    function win() { trace("congrats you won!"); if (player != null) player.kill(); }
 }

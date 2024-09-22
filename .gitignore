@@ -14,6 +14,8 @@
 # macOS being a poosy!!!
 .DS_Store
 __MACOSX/
+.AppleDouble
+.LSOverride
 
 # js stuff
 node_modules/
@@ -24,9 +26,14 @@ package-lock.json
 .history
 .ionide
 
+# Junk files that might appear on USB shits
+.Spotlight-V100
+.Trashes
+
 # misc
-Thumbs.db 
+Thumbs.db
 desktop.ini
 RECOVER_*.fla
 * - Copy*
+._*
 dump/
