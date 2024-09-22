@@ -22,6 +22,8 @@ import funkin.ui.MusicBeatState;
 import funkin.ui.mainmenu.MainMenuState;
 import funkin.util.ReflectUtil;
 
+import openfl.Assets;
+
 class PlatformerState extends ScriptedMusicBeatState
 {
     var showHitboxes:Bool = false;
@@ -35,7 +37,7 @@ class PlatformerState extends ScriptedMusicBeatState
 
     public function new() { super(); }
 
-    public function getCsv(path:String) { return Assets.getText("mods/platf/" + path + ".csv"); }
+    public function getCsv(path:String) { return "mods/platf/" + path + ".csv"; }
 
     public function create():Void
     {
@@ -56,7 +58,7 @@ class PlatformerState extends ScriptedMusicBeatState
         trace("hi");
 
         level = new FlxTilemap();
-		level.loadMap(getCsv("data/csv/level"), Paths.image("platformer/tiles"), 16, 16);
+		level.loadMapFromCsv(getCsv("data/csv/level"), Paths.image("platformer/tiles"), 16, 16);
         add(level);
 
         player.screenCenter(0x01);
