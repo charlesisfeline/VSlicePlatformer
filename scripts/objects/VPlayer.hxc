@@ -1,0 +1,51 @@
+import flixel.FlxG;
+import flixel.math.FlxMath;
+
+import funkin.Paths;
+import funkin.graphics.FunkinSprite;
+import funkin.modding.base.ScriptedFunkinSprite;
+
+class VPlayer extends ScriptedFunkinSprite
+{
+  var speed:Float = 220;
+
+  public var _left:Bool = false;
+  public var _right:Bool = false;
+  public var _jumpKey:Bool = false;
+
+  public var lockMovement:Bool = false;
+
+  public function new(x:Float = 0, y:Float = 0)
+  {
+    super(x, y);
+
+    loadGraphic(Paths.image("platformer/playerSprite"));
+
+    player.maxVelocity.set(80, 200);
+		player.acceleration.y = 200;
+		player.drag.x = player.maxVelocity.x * 4;
+
+    antialiasing = false;
+  }
+
+  function update(ew)
+  {
+    updateHitbox();
+
+    if (!lockMovement)
+      baseControl();
+
+    super.update(ew);
+  }
+
+  function baseControl()
+  {
+    _left = FlxG.keys.pressed.LEFT;
+    _right = FlxG.keys.pressed.RIGHT;
+    _jumpKey = (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE)
+
+    if (_left && _right)
+       _left = _right = false;
+  }
+
+}

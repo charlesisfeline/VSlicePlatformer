@@ -26,7 +26,7 @@ class PlatformerState extends ScriptedMusicBeatState
     var showHitboxes:Bool = false;
     var justDied:Bool = false;
 
-    public var player:FlxSprite;
+    public var player = ScriptedFunkinSprite.init("VPlayer");
     public var level:FlxTilemap;
 
     var camGame:FlxCamera;
@@ -69,11 +69,7 @@ class PlatformerState extends ScriptedMusicBeatState
 		add(level);
         */
 
-        player = new FlxSprite().loadGraphic(Paths.image("platformer/playerSprite"));
         player.screenCenter();
-        player.maxVelocity.set(80, 200);
-		player.acceleration.y = 200;
-		player.drag.x = player.maxVelocity.x * 4;
         add(player);
 
         super.create();
@@ -98,13 +94,13 @@ class PlatformerState extends ScriptedMusicBeatState
             player.acceleration.x = 0;
 
         // control shits
-        if (FlxG.keys.pressed.LEFT)
+        if (player._left)
 			player.acceleration.x = -player.maxVelocity.x * 4;
 
-		if (FlxG.keys.pressed.RIGHT)
+		if (player._right)
 			player.acceleration.x = player.maxVelocity.x * 4;
 
-		if ((FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE))
+		if (player._jumpKey)
 			jump();
     }
 
