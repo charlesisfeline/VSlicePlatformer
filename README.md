@@ -6,6 +6,7 @@ A V-Slice experiment, to see if it's possible to make a platformer engine in it.
 - `VPlayer` class with some of the basic physics for platforming.
     - Movement (Left & Right)
     - Jumping
+    - Collision
 
 ## Credits
 - charlesisfeline [Programmer]
