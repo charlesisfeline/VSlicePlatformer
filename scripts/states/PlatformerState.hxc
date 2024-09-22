@@ -35,7 +35,7 @@ class PlatformerState extends ScriptedMusicBeatState
 
     public function new() { super(); }
 
-    public function getCsv(path:String) { return "mods/platf/" + path + ".csv"; }
+    public function getCsv(path:String) { return Assets.getText("mods/platf/" + path + ".csv"); }
 
     public function create():Void
     {
@@ -55,11 +55,9 @@ class PlatformerState extends ScriptedMusicBeatState
 
         trace("hi");
 
-        /*
         level = new FlxTilemap();
-		level.loadMapFromCSV(getCsv("data/csv/level"), FlxGraphic.fromClass(GraphicAuto), 0, 0, AUTO);
-		add(level);
-        */
+		level.loadMap(getCsv("data/csv/level"), Paths.image("platformer/tiles"), 16, 16);
+        add(level);
 
         player.screenCenter(0x01);
         add(player);
@@ -106,7 +104,7 @@ class PlatformerState extends ScriptedMusicBeatState
 
         if (player != null)
         {
-          // FlxG.collide(level, player);
+          FlxG.collide(level, player);
 
           if (player.y > FlxG.height) lose();
         }
